@@ -5,9 +5,9 @@ spring:
     application:
         name: user-service
     datasource:
-        url: jdbc:postgresql://db-postgresql-nyc3-20464-do-user-10830802-0.a.db.ondigitalocean.com:25060/lms-db
-        username: doadmin
-        password: <password>
+        url: ${DB_URL}
+        username: ${DB_USERNAME}
+        password: ${DB_PASSWORD}
         driver-class-name: org.postgresql.Driver
     jpa:
         hibernate:
