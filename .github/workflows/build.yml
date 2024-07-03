@@ -46,7 +46,7 @@ jobs:
   #         mvn -B clean verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=avishka2k_course-service
 
   build-user-service:
-    name: Build and analyze student-service
+    name: Build and analyze user-service
     runs-on: ubuntu-latest
 
     steps:
@@ -84,4 +84,4 @@ jobs:
           DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
         run: |
           cd user-service
-          mvn -B clean verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=avishka2k_student-service
+          mvn -B -X clean verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=avishka2k_student-service
