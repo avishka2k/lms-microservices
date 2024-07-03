@@ -1,0 +1,32 @@
+server:
+    port: 8081
+
+spring:
+    application:
+        name: user-service
+    datasource:
+        url: jdbc:postgresql://db-postgresql-nyc3-20464-do-user-10830802-0.a.db.ondigitalocean.com:25060/lms-db
+        username: doadmin
+        password: AVNS_0JX13X-BQ8crKSBDgyt
+        driver-class-name: org.postgresql.Driver
+    jpa:
+        hibernate:
+            ddl-auto: update
+        show-sql: true
+        properties:
+            hibernate:
+                format_sql: true
+        database-platform: org.hibernate.dialect.PostgreSQLDialect
+
+eureka:
+    client:
+        serviceUrl:
+            defaultZone: http://localhost:8761/eureka/
+        registerWithEureka: true
+        fetchRegistry: true
+
+    instance:
+        preferIpAddress: true
+        instanceId: ${spring.application.name}:${server.port}:${random.value}
+        leaseRenewalIntervalInSeconds: 5
+        leaseExpirationDurationInSeconds: 10
