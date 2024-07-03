@@ -6,8 +6,8 @@ spring:
         name: user-service
     datasource:
         url: jdbc:postgresql://<db host>:25060/lms-db
-        username: <db username>
-        password: <db password>
+        username:
+        password:
         driver-class-name: org.postgresql.Driver
     jpa:
         hibernate:
