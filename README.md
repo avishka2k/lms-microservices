@@ -2,6 +2,18 @@
 
 This repository contains the code for a Learning Management System (LMS) built using Spring Boot microservices. The project consists of several services including Discovery Server, API Gateway, and various microservices for managing students, staff, courses, enrollments, content, and notifications.
 
+<div align="center">
+  <a href="https://sonarcloud.io/summary/new_code?id=avishka2k_lms-microservices" target="_blank">
+    <img src="https://sonarcloud.io/api/project_badges/measure?project=avishka2k_lms-microservices&metric=alert_status" alt="Quality Gate Status">
+  </a>
+  <a href="https://sonarcloud.io/summary/new_code?id=avishka2k_lms-microservices" target="_blank">
+    <img src="https://sonarcloud.io/api/project_badges/measure?project=avishka2k_lms-microservices&metric=security_rating" alt="Quality Gate Status">
+  </a>
+  <a href="https://sonarcloud.io/summary/new_code?id=avishka2k_lms-microservices" target="_blank">
+    <img src="https://sonarcloud.io/api/project_badges/measure?project=avishka2k_lms-microservices&metric=sqale_rating" alt="Quality Gate Status">
+  </a>
+</div>
+
 ## Microservices Structure
 
 - `discovery-server`: Service Discovery using Eureka
