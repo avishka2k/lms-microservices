@@ -4,10 +4,21 @@ server:
 spring:
     application:
         name: user-service
+    cloud:
+        vault:
+            uri: http://localhost:8200
+            token: ${VAULT_TOKEN}
+            kv:
+                enabled: true
+                backend: secret
+                default-context: spring-boot-lms
+            scheme: http
+    config:
+        import: vault://secret/spring-boot-lms
     datasource:
-        url: ${DB_URL}
-        username: ${DB_USERNAME}
-        password: ${DB_PASSWORD}
+        url: ${vault.db_url}
+        username: ${vault.db_username}
+        password: ${vault.db_password}
         driver-class-name: org.postgresql.Driver
     jpa:
         hibernate:
@@ -18,15 +29,16 @@ spring:
                 format_sql: true
         database-platform: org.hibernate.dialect.PostgreSQLDialect
 
-eureka:
-    client:
-        serviceUrl:
-            defaultZone: http://localhost:8761/eureka/
-        registerWithEureka: true
-        fetchRegistry: true
 
-    instance:
-        preferIpAddress: true
-        instanceId: ${spring.application.name}:${server.port}:${random.value}
-        leaseRenewalIntervalInSeconds: 5
-        leaseExpirationDurationInSeconds: 10
+#eureka:
+#    client:
+#        serviceUrl:
+#            defaultZone: http://localhost:8761/eureka/
+#        registerWithEureka: true
+#        fetchRegistry: true
+#
+#    instance:
+#        preferIpAddress: true
+#        instanceId: ${spring.application.name}:${server.port}:${random.value}
+#        leaseRenewalIntervalInSeconds: 5
+#        leaseExpirationDurationInSeconds: 10
