@@ -28,8 +28,46 @@ spring:
             hibernate:
                 format_sql: true
         database-platform: org.hibernate.dialect.PostgreSQLDialect
+    security:
+      oauth2:
+          client:
+              registration:
+                cognito:
+                  client-id: ${vault.cognito_client_id}
+                  client-secret: ${vault.cognito_client_secret}
+                  scope: openid
+                  redirect-uri: http://localhost:8081/login/oauth2/code/cognito
+                  client-name: ${vault.cognito_client_name}
+                  authorization-grant-type: authorization_code
+              provider:
+                cognito:
+                  issuer-uri: ${vault.cognito_issuer_uri}
+          resourceserver:
+            jwt:
+              issuer-uri: ${vault.cognito_issuer_uri}
 
+aws:
+  region: ${vault.aws_region}
+  accessKeyId: ${vault.aws_access_key}
+  secretKey: ${vault.aws_secret_key}
+  cognito:
+    userPoolId: ${vault.cognito_user_pool_id}
+    logoutUrl: ${vault.cognito_logout_uri}
+    logout:
+      success:
+        redirectUrl: http://localhost:8081
 
+springdoc:
+  swagger-ui:
+    disable-swagger-default-url: true
+  api-docs:
+    path: /api-docs
+  default-consumes-media-type: application/json
+
+management:
+  tracing:
+    sampling:
+        probability: 1.0
 #eureka:
 #    client:
 #        serviceUrl:
@@ -42,3 +80,8 @@ spring:
 #        instanceId: ${spring.application.name}:${server.port}:${random.value}
 #        leaseRenewalIntervalInSeconds: 5
 #        leaseExpirationDurationInSeconds: 10
+
+
+logging:
+  level:
+    org.springframework.security: DEBUG

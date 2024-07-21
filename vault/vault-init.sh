@@ -14,6 +14,7 @@ vault operator init > /vault/file/keys
 
 log_in () {
    export ROOT_TOKEN=$(grep 'Initial Root Token:' /vault/file/keys | awk '{print $NF}')
+   echo "VAULT_TOKEN=${ROOT_TOKEN}" > /vault/file/vault_token.env
    vault login $ROOT_TOKEN
 }
 

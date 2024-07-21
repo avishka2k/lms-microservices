@@ -9,13 +9,14 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class UserRequestDto {
+public class StudentRequestDto {
     private String username;
     private String email;
     private String name;
-//    private String phoneNumber;
+    private String phoneNumber;
     private String address;
     private String dateOfBirth;
     private String gender;
     private String profilePicture;
+    private String joiningDate;
 }
