@@ -4,7 +4,6 @@ import com.lms.user.dto.CognitoUserDto;
 import com.lms.user.dto.UserRequestDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.oauth2.core.oidc.user.OidcUser;
 import org.springframework.stereotype.Service;
 import software.amazon.awssdk.services.cognitoidentityprovider.CognitoIdentityProviderClient;
@@ -20,8 +19,8 @@ public class AdminService {
     @Autowired
     private CognitoIdentityProviderClient cognitoClient;
 
-//    @Value("${aws.cognito.userPoolId}")
-    private String userPoolId = "ap-southeast-1_fPd4etWzw";
+    @Value("${aws.cognito.userPoolId}")
+    private String userPoolId;
 
     public Map<String, Object> getCurrentUser(OidcUser user) {
         if (user == null) {
