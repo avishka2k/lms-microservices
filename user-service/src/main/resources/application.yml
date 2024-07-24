@@ -41,6 +41,7 @@ spring:
                   authorization-grant-type: authorization_code
               provider:
                 cognito:
+                  user-info-uri: https://lmsmicro.auth.ap-southeast-1.amazoncognito.com/oauth2/userInfo # ${vault.cognito_user_info_uri}
                   issuer-uri: ${vault.cognito_issuer_uri}
           resourceserver:
             jwt:

@@ -3,11 +3,10 @@ package com.lms.user.controller;
 import com.lms.user.dto.CognitoUserDto;
 import com.lms.user.dto.UserRequestDto;
 import com.lms.user.service.AdminService;
+import com.lms.user.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.oauth2.core.oidc.user.OidcUser;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -19,11 +18,12 @@ import java.util.Map;
 public class AdminController {
 
     private final AdminService adminService;
+    private final UserService userService;
 
-    @Operation(summary = "Get Admin", description = "Returns the details of the logged in admin")
-    @GetMapping()
-    public Map<String, Object> getUserDetails(@AuthenticationPrincipal OidcUser user) {
-        return adminService.getCurrentUser(user);
+    @Operation(summary = "Get User Info", description = "Returns the user information from Cognito")
+    @GetMapping("/userInfo")
+    public Map<String, Object> getUserInfo() {
+        return userService.getUserInfo();
     }
 
     @Operation(summary = "Get Students", description = "Returns a list of all students")
