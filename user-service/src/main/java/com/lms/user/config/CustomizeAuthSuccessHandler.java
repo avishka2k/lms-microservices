@@ -24,8 +24,6 @@ public class CustomizeAuthSuccessHandler implements AuthenticationSuccessHandler
 
             Map<String, Object> userAttributes = defaultOidcUser.getAttributes();
 
-//            System.out.println(userAttributes);
-
             if ("ROLE_STUDENT".equals(auth.getAuthority())) {
                 System.out.println(userAttributes.get("cognito:username") + " Is User!");
                 response.sendRedirect("/api/student");

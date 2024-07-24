@@ -11,10 +11,7 @@ import software.amazon.awssdk.services.cognitoidentityprovider.CognitoIdentityPr
 import software.amazon.awssdk.services.cognitoidentityprovider.model.*;
 
 import java.text.SimpleDateFormat;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -23,10 +20,13 @@ public class AdminService {
     @Autowired
     private CognitoIdentityProviderClient cognitoClient;
 
-    @Value("${aws.cognito.userPoolId}")
-    private String userPoolId;
+//    @Value("${aws.cognito.userPoolId}")
+    private String userPoolId = "ap-southeast-1_fPd4etWzw";
 
     public Map<String, Object> getCurrentUser(OidcUser user) {
+        if (user == null) {
+            return Collections.emptyMap();
+        }
         return user.getAttributes();
     }
 
@@ -79,44 +79,6 @@ public class AdminService {
             throw new RuntimeException("Failed to create user in Cognito");
         }
     }
-
-//    public String createUser(StudentRequestDto studentRequest, String groupName) {
-//
-//        String username = studentRequest.getUsername();
-//        String email = studentRequest.getEmail();
-//        String name = studentRequest.getName();
-//
-//        try {
-//
-//            AdminCreateUserRequest createUserRequest = AdminCreateUserRequest.builder()
-//                    .userPoolId(userPoolId)
-//                    .username(username)
-//                    .userAttributes(Arrays.asList(
-//                            AttributeType.builder().name("email").value(email).build(),
-//                            AttributeType.builder().name("email_verified").value("false").build(),
-//                            AttributeType.builder().name("name").value(name).build()
-//                    ))
-//                    .build();
-//
-//            AdminCreateUserResponse createUserResponse = cognitoClient.adminCreateUser(createUserRequest);
-//
-//            // Assign user to group
-//            AdminAddUserToGroupRequest addUserToGroupRequest = AdminAddUserToGroupRequest.builder()
-//                    .userPoolId(userPoolId)
-//                    .username(username)
-//                    .groupName(groupName)
-//                    .build();
-//
-//            cognitoClient.adminAddUserToGroup(addUserToGroupRequest);
-//
-//            return createUserResponse.user().username();
-//        } catch (UsernameExistsException e) {
-//            return "User already exists with username " + username;
-//        } catch (CognitoIdentityProviderException e) {
-//            e.printStackTrace();
-//            throw new RuntimeException("Failed to create user in Cognito", e);
-//        }
-//    }
 
     public Map<String, String> getUserByUsername(String username) {
         try {

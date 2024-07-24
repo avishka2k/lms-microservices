@@ -35,7 +35,7 @@ spring:
                 cognito:
                   client-id: ${vault.cognito_client_id}
                   client-secret: ${vault.cognito_client_secret}
-                  scope: openid
+                  scope: openid, profile, email, aws.cognito.signin.user.admin
                   redirect-uri: http://localhost:8081/login/oauth2/code/cognito
                   client-name: ${vault.cognito_client_name}
                   authorization-grant-type: authorization_code

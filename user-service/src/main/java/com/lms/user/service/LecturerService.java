@@ -14,8 +14,6 @@ public class LecturerService {
     @Autowired
     private CognitoIdentityProviderClient cognitoClient;
 
-    @Value("${aws.cognito.userPoolId}")
-    private String userPoolId;
 
     public Map<String, Object> getCurrentUser(OidcUser user) {
         return user.getAttributes();
