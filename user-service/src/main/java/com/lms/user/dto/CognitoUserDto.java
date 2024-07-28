@@ -8,5 +8,6 @@ import java.util.Map;
 public class CognitoUserDto {
     private String username;
     private String email;
+    private String name;
     private Map<String, String> attributes;
 }

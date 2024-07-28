@@ -1,7 +1,8 @@
 package com.lms.user.controller;
 
 import com.lms.user.dto.CognitoUserDto;
-import com.lms.user.dto.UserRequestDto;
+import com.lms.user.dto.LecturerRequestDto;
+import com.lms.user.dto.StudentRequestDto;
 import com.lms.user.service.AdminService;
 import com.lms.user.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -48,14 +49,14 @@ public class AdminController {
 
     @Operation(summary = "Create Student", description = "Creates a new student")
     @PostMapping("/createStudent")
-    public String createStudent(@RequestBody UserRequestDto dto) {
-        return adminService.createUser(dto, "STUDENT");
+    public String createStudent(@RequestBody StudentRequestDto dto) {
+        return adminService.createStudent(dto, "STUDENT");
     }
 
     @Operation(summary = "Create Lecturer", description = "Creates a new lecturer")
     @PostMapping("/createLecturer")
-    public String createLecturer(@RequestBody UserRequestDto dto) {
-        return adminService.createUser(dto, "LECTURER");
+    public String createLecturer(@RequestBody LecturerRequestDto dto) {
+        return adminService.createLecturer(dto, "LECTURER");
     }
 
     @Operation(summary = "Update User Attributes", description = "Updates user attributes")

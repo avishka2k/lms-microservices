@@ -1,25 +1,34 @@
-package com.lms.user.dto;
+package com.lms.user.entity;
 
-import jakarta.persistence.ElementCollection;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+@Entity
 @Data
-@Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class StudentRequestDto {
+@Table(name = "students")
+public class Student {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column(nullable = false)
     private String username;
+    @Column(nullable = false)
     private String email;
     private String firstName;
     private String lastName;
+    @Column(nullable = false)
     private String fullName;
     private String phoneNumber;
-    @ElementCollection
-    private AddressDto address;
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "address_id")
+    private Address address;
     private String dateOfBirth;
+    @Column(nullable = false)
     private String gender;
     private String joiningDate;
 
@@ -35,5 +44,4 @@ public class StudentRequestDto {
     private String guardianPhoneNumber;
     private String guardianEmail;
     private String relationship;
-
 }

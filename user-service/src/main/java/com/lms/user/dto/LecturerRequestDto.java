@@ -1,6 +1,7 @@
 package com.lms.user.dto;
 
-import jakarta.persistence.ElementCollection;
+import com.lms.user.entity.Address;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -15,19 +16,29 @@ import java.util.List;
 public class LecturerRequestDto {
     private String username;
     private String email;
-    private String name;
+    private String firstName;
+    private String lastName;
+    private String fullName;
     private String phoneNumber;
-    private String address;
+    @ElementCollection
+    private Address address;
     private String dateOfBirth;
     private String gender;
-    private String profilePicture;
     private String joiningDate;
+    private String nicImage;
+    private String profileImage;
 
-//    @ElementCollection
-//    private List<String> coursesTaught;
-//
-//    @ElementCollection
-//    private List<String> publications;
-//
-//    private String officeHours;
+    private int LecturerId;
+    private String designation;
+    private String department;
+    private String faculty;
+    private String officeLocation;
+    private String employType;
+    private String nic;
+    private String highestDegreeObtained;
+    private String highestDegreeInstitute;
+    private String specialization;
+    private String researchInterest;
+    private String linkedIn;
+    private String cv;
 }
