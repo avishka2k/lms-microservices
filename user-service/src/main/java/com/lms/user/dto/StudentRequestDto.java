@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class StudentRequestDto {
+public class StudentRequestDto implements UserRequestDto {
     private String username;
     private String email;
     private String firstName;
@@ -35,5 +35,4 @@ public class StudentRequestDto {
     private String guardianPhoneNumber;
     private String guardianEmail;
     private String relationship;
-
 }

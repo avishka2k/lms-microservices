@@ -3,10 +3,12 @@ package com.lms.user.service;
 import com.lms.user.dto.CognitoUserDto;
 import com.lms.user.dto.LecturerRequestDto;
 import com.lms.user.dto.StudentRequestDto;
+import com.lms.user.dto.UserRequestDto;
 import com.lms.user.entity.Address;
 import com.lms.user.entity.Lecturer;
 import com.lms.user.entity.Student;
 import com.lms.user.repository.AddressRepository;
+import com.lms.user.repository.LecturerRepository;
 import com.lms.user.repository.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -25,6 +27,9 @@ public class AdminService {
 
     @Autowired
     private StudentRepository studentRepository;
+
+    @Autowired
+    private LecturerRepository lecturerRepository;
 
     @Autowired
     private AddressRepository addressRepository;
@@ -47,6 +52,26 @@ public class AdminService {
             studentRepository.save(student);
             String user = createCognitoUser(dto, groupName);
             return "Student created successfully with username " + user;
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to save student in database" + e);
+        }
+    }
+
+    public String createLecturer(LecturerRequestDto dto, String groupName) {
+
+        Address address = new Address();
+        address.setAddressLine1(dto.getAddress().getAddressLine1());
+        address.setAddressLine2(dto.getAddress().getAddressLine2());
+        address.setCity(dto.getAddress().getCity());
+        address.setState(dto.getAddress().getState());
+        address.setCountry(dto.getAddress().getCountry());
+
+        try {
+            address = addressRepository.save(address);
+            Lecturer student = getLecturer(dto, address);
+            lecturerRepository.save(student);
+            String user = createCognitoUser(dto, groupName);
+            return "Lecturer created successfully with username " + user;
         } catch (Exception e) {
             throw new RuntimeException("Failed to save student in database" + e);
         }
@@ -110,7 +135,7 @@ public class AdminService {
         return lecturer;
     }
 
-    public String createCognitoUser(StudentRequestDto dto, String groupName) {
+    public String createCognitoUser(UserRequestDto dto, String groupName) {
 
         String username = dto.getUsername();
         String email = dto.getEmail();

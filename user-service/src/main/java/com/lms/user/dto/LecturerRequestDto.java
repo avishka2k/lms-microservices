@@ -1,6 +1,5 @@
 package com.lms.user.dto;
 
-import com.lms.user.entity.Address;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -13,7 +12,7 @@ import java.util.List;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class LecturerRequestDto {
+public class LecturerRequestDto implements UserRequestDto {
     private String username;
     private String email;
     private String firstName;
@@ -21,7 +20,7 @@ public class LecturerRequestDto {
     private String fullName;
     private String phoneNumber;
     @ElementCollection
-    private Address address;
+    private AddressDto address;
     private String dateOfBirth;
     private String gender;
     private String joiningDate;

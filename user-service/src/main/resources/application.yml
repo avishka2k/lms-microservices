@@ -41,7 +41,7 @@ spring:
                   authorization-grant-type: authorization_code
               provider:
                 cognito:
-                  user-info-uri: https://lmsmicro.auth.ap-southeast-1.amazoncognito.com/oauth2/userInfo # ${vault.cognito_user_info_uri}
+                  user-info-uri: ${vault.cognito_domain}/oauth2/userInfo
                   issuer-uri: ${vault.cognito_issuer_uri}
           resourceserver:
             jwt:
@@ -53,7 +53,7 @@ aws:
   secretKey: ${vault.aws_secret_key}
   cognito:
     userPoolId: ${vault.cognito_user_pool_id}
-    logoutUrl: ${vault.cognito_logout_uri}
+    logoutUrl: ${vault.cognito_domain}/logout
     logout:
       success:
         redirectUrl: http://localhost:8081
@@ -65,22 +65,23 @@ springdoc:
     path: /api-docs
   default-consumes-media-type: application/json
 
-management:
-  tracing:
-    sampling:
-        probability: 1.0
-#eureka:
-#    client:
-#        serviceUrl:
-#            defaultZone: http://localhost:8761/eureka/
-#        registerWithEureka: true
-#        fetchRegistry: true
-#
-#    instance:
-#        preferIpAddress: true
-#        instanceId: ${spring.application.name}:${server.port}:${random.value}
-#        leaseRenewalIntervalInSeconds: 5
-#        leaseExpirationDurationInSeconds: 10
+#management:
+#  tracing:
+#    sampling:
+#        probability: 1.0
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
+    registerWithEureka: true
+    fetchRegistry: true
+
+  instance:
+    preferIpAddress: true
+    instanceId: ${spring.application.name}:${server.port}
+    leaseRenewalIntervalInSeconds: 5
+    leaseExpirationDurationInSeconds: 10
 
 
 logging:
