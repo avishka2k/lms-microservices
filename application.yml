@@ -3,6 +3,17 @@ group:
   lecturer: LECTURER
 
 spring:
+  cloud:
+    vault:
+      uri: http://localhost:8200
+      token: ${VAULT_TOKEN}
+      kv:
+        enabled: true
+        backend: secret
+        default-context: spring-boot-lms
+      scheme: http
+  config:
+    import: vault://secret/spring-boot-lms
   datasource:
     url: ${vault.db_url}
     username: ${vault.db_username}
@@ -22,17 +33,3 @@ spring:
       resourceserver:
         jwt:
           issuer-uri: ${vault.cognito_issuer_uri}
-
-eureka:
-  client:
-    serviceUrl:
-      defaultZone: http://localhost:8761/eureka/
-    registerWithEureka: true
-    fetchRegistry: true
-
-  instance:
-    preferIpAddress: true
-    instanceId: ${spring.application.name}:${server.port}
-    leaseRenewalIntervalInSeconds: 5
-    leaseExpirationDurationInSeconds: 10
-    hostname: ${spring.application.name}
