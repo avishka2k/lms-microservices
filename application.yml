@@ -12,8 +12,6 @@ spring:
         backend: secret
         default-context: spring-boot-lms
       scheme: http
-  config:
-    import: vault://secret/spring-boot-lms
   datasource:
     url: ${vault.db_url}
     username: ${vault.db_username}
