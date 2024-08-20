@@ -1,6 +1,8 @@
 group:
   student: STUDENT
   lecturer: LECTURER
+common:
+  origins: {"http://localhost:3000", "http://localhost:8081"}
 
 spring:
   cloud:
