@@ -31,3 +31,16 @@ spring:
       resourceserver:
         jwt:
           issuer-uri: ${vault.cognito_issuer_uri}
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
+    registerWithEureka: true
+    fetchRegistry: true
+
+  instance:
+    preferIpAddress: true
+    instanceId: ${spring.application.name}:${server.port}
+    leaseRenewalIntervalInSeconds: 5
+    leaseExpirationDurationInSeconds: 10
