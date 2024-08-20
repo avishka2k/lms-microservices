@@ -1,42 +1,43 @@
 package com.lms.user.service;
 
-import com.lms.user.dto.UserRequestDto;
-import com.lms.user.dto.UserResponseDto;
-import com.lms.user.entity.User;
-import com.lms.user.repository.UserRepository;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.oauth2.core.oidc.user.OidcUser;
+import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
-import java.util.List;
+import java.util.Collections;
+import java.util.Map;
 
 @Service
-@RequiredArgsConstructor
-@Slf4j
 public class UserService {
 
-    private final UserRepository userRepository;
+    @Value("${spring.security.oauth2.client.provider.cognito.user-info-uri}")
+    private String userInfoUri;
 
-    public void createUser(UserRequestDto userRequestDto) {
-        User user = User.builder()
-                .name(userRequestDto.getName())
-                .email(userRequestDto.getEmail())
-                .password(userRequestDto.getPassword())
-                .build();
-        userRepository.save(user);
-        log.info("User created");
+    public Map<String, Object> getUserInfo() {
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        String accessToken;
+        if (principal instanceof OidcUser user) {
+            accessToken = user.getIdToken().getTokenValue();
+        } else if (principal instanceof Jwt jwt) {
+            accessToken = jwt.getTokenValue();
+        } else {
+            System.out.println("Unknown principal type: " + principal.getClass());
+            return Collections.emptyMap();
+        }
+
+        RestTemplate restTemplate = new RestTemplate();
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("Authorization", "Bearer " + accessToken);
+        HttpEntity<String> entity = new HttpEntity<>(headers);
+
+        ResponseEntity<Map> response = restTemplate.exchange(userInfoUri, HttpMethod.GET, entity, Map.class);
+        return response.getBody();
     }
-
-    public List<UserResponseDto> getAllUser() {
-        List<User> users = userRepository.findAll();
-        return users.stream().map(user -> UserResponseDto.builder()
-                .id(user.getId())
-                .name(user.getName())
-                .email(user.getEmail())
-                .password(user.getPassword())
-                .build()).toList();
-    }
-
-
-
 }
