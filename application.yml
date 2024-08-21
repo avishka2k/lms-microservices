@@ -7,21 +7,6 @@ common:
     - http://localhost:8081
     - http://localhost:8080
 
-global:
-  cors:
-    origins:
-      - "http://localhost:3000"
-      - "http://localhost:8080"
-    allowedMethods:
-      - "GET"
-      - "POST"
-      - "PUT"
-      - "DELETE"
-    allowedHeaders: "*"
-    allowCredentials: true
-    maxAge: 3600
-    corsConfigurations: {}
-
 spring:
   cloud:
     vault:
