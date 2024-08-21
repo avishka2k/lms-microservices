@@ -7,4 +7,4 @@ spring:
   config:
     import:
       - vault://secret/spring-boot-lms
-      - configserver:http://localhost:8888
+      - configserver:http://config-server:8888

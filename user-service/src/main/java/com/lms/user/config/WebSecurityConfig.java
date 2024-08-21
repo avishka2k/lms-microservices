@@ -47,9 +47,9 @@ public class WebSecurityConfig {
                 .authorizeHttpRequests(request -> request
                         .requestMatchers("/api/auth/**").permitAll()
                         .requestMatchers("/swagger-ui/**").permitAll() // swagger-ui public for testing. Grant access to only authenticated admin in production.
-                        .requestMatchers("/api/student/**").hasAnyRole("STUDENT", "ADMIN")
-                        .requestMatchers("/api/lecturer/**").hasAnyRole("LECTURER", "ADMIN")
-                        .requestMatchers("/api/admin/**").hasRole("ADMIN")
+                        .requestMatchers("/api/user/student/**").hasAnyRole("STUDENT", "ADMIN")
+                        .requestMatchers("/api/user/lecturer/**").hasAnyRole("LECTURER", "ADMIN")
+                        .requestMatchers("/api/user/admin/**").hasRole("ADMIN")
                         .anyRequest().authenticated()
                 )
                 .oauth2ResourceServer(oauth2ResourceServer ->

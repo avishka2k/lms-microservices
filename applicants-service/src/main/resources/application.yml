@@ -1,0 +1,10 @@
+server:
+  port: 8084
+
+spring:
+  application:
+    name: applicants-service
+  config:
+    import:
+      - vault://secret/spring-boot-lms
+      - configserver:http://config-server:8888

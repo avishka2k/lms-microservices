@@ -1,0 +1,51 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: api-gateway
+  cloud:
+    gateway:
+      globalcors:
+        cors-configurations:
+            '[/**]':
+                allowedOrigins: "http://localhost:3000"
+                allowedMethods:
+                - GET
+                - POST
+                - PUT
+                - DELETE
+                allowedHeaders:
+                - "*"
+                allowCredentials: true
+
+      routes:
+        - id: user-service
+          uri: http://user-service:8081
+          predicates:
+            - Path=/api/user/**
+
+        - id: university-service
+          uri: http://university-service:8082
+          predicates:
+            - Path=/api/uni/**
+
+        - id: enrollment-service
+          uri: lb://enrollment-service
+          predicates:
+            - Path=/api/enrollment/**
+
+        - id: applicants-service
+          uri: http://applicants-service:8084
+          predicates:
+            - Path=/api/applicants/**
+
+        - id: course-service
+          uri: http://course-service:8085
+          predicates:
+            - Path=/api/course/**
+
+        - id: announcement-service
+          uri: http://announcement-service:8086
+          predicates:
+            - Path=/api/announcement/**

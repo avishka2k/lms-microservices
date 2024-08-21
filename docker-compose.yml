@@ -1,15 +1,6 @@
 version: '3.8'
 
 services:
-#    postgres:
-#        image: postgres:16
-#        volumes:
-#        - postgres_data:/var/lib/postgresql/data
-#        environment:
-#          POSTGRES_DB: postgres
-#          POSTGRES_USER: postgres
-#          POSTGRES_PASSWORD: postgres
-#        restart: on-failure
   vault:
     image: vault:1.13.3
     container_name: vault
@@ -47,6 +38,41 @@ services:
     networks:
       - lms-network
 
+  discovery-server:
+    build:
+      context: ./discovery-server
+      dockerfile: Dockerfile
+    container_name: discovery-server
+    ports:
+      - 8761:8761
+    networks:
+      - lms-network
+    restart: always
+
+  config-server:
+    build:
+      context: ./config-server
+      dockerfile: Dockerfile
+    container_name: config-server
+    ports:
+      - 8888:8888
+    networks:
+      - lms-network
+    restart: always
+
+  api-gateway:
+    build:
+      context: ./api-gateway
+      dockerfile: Dockerfile
+    container_name: api-gateway
+    ports:
+      - 8080:8080
+    networks:
+      - lms-network
+    restart: always
+    depends_on:
+      - discovery-server
+
 #  zipkin-server:
 #    image: openzipkin/zipkin:latest
 #    container_name: zipkin-server
@@ -56,24 +82,77 @@ services:
 #      - lms-network
 #    restart: always
 
+  user-service:
+    build:
+      context: ./user-service
+      dockerfile: Dockerfile
+    container_name: user-service
+    ports:
+      - 8081:8081
+    environment:
+      - VAULT_ADDR=http://vault:8200
+      - VAULT_TOKEN=
+    volumes:
+      - vault-data:/vault/file/
+    networks:
+      - lms-network
+    depends_on:
+      - vault
+    restart: always
 
-#  user-service:
-#    build:
-#      context: ./user-service
-#      dockerfile: Dockerfile
-#    container_name: user-service
-#    ports:
-#      - 8081:8081
-#    environment:
-#      - VAULT_ADDR=http://vault:8200
-#    volumes:
-#      - vault-data:/vault/file/
-#    networks:
-#      - lms-network
-#    depends_on:
-#      - vault
-#      - vault-init
-#    restart: always
+  university-service:
+    build:
+      context: ./university-service
+      dockerfile: Dockerfile
+    container_name: university-service
+    ports:
+      - 8082:8082
+    environment:
+      - VAULT_ADDR=http://vault:8200
+      - VAULT_TOKEN=
+    volumes:
+      - vault-data:/vault/file/
+    networks:
+      - lms-network
+    depends_on:
+      - vault
+    restart: always
+
+  applicants-service:
+    build:
+      context: ./applicants-service
+      dockerfile: Dockerfile
+    container_name: applicants-service
+    ports:
+      - 8084:8084
+    environment:
+      - VAULT_ADDR=http://vault:8200
+      - VAULT_TOKEN=
+    volumes:
+      - vault-data:/vault/file/
+    networks:
+      - lms-network
+    depends_on:
+      - vault
+    restart: always
+
+  announcement-service:
+    build:
+      context: ./announcement-service
+      dockerfile: Dockerfile
+    container_name: announcement-service
+    ports:
+      - 8086:8086
+    environment:
+      - VAULT_ADDR=http://vault:8200
+      - VAULT_TOKEN=
+    volumes:
+      - vault-data:/vault/file/
+    networks:
+      - lms-network
+    depends_on:
+      - vault
+    restart: always
 
 networks:
   lms-network:
