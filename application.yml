@@ -44,8 +44,8 @@ eureka:
     registerWithEureka: true
     fetchRegistry: true
 
-  instance:
-    preferIpAddress: true
-    instanceId: ${spring.application.name}:${server.port}
-    leaseRenewalIntervalInSeconds: 5
-    leaseExpirationDurationInSeconds: 10
+  # instance:
+  #   preferIpAddress: true
+  #   instanceId: ${spring.application.name}:${server.port}
+  #   leaseRenewalIntervalInSeconds: 5
+  #   leaseExpirationDurationInSeconds: 10
