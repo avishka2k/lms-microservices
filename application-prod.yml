@@ -4,9 +4,7 @@ group:
 common:
   origins: 
     - http://localhost:3000
-    - http://localhost:8081
-    - http://localhost:8080
-
+    
 spring:
   cloud:
     vault:
@@ -30,7 +28,6 @@ spring:
       hibernate:
         format_sql: true
     database-platform: org.hibernate.dialect.PostgreSQLDialect
-
   security:
     oauth2:
       resourceserver:
@@ -43,7 +40,6 @@ eureka:
       defaultZone: http://discovery-server:8761/eureka/
     registerWithEureka: true
     fetchRegistry: true
-
   instance:
     preferIpAddress: true
     instanceId: ${spring.application.name}:${server.port}
