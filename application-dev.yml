@@ -28,7 +28,6 @@ spring:
       hibernate:
         format_sql: true
     database-platform: org.hibernate.dialect.PostgreSQLDialect
-
   security:
     oauth2:
       resourceserver:
@@ -41,7 +40,6 @@ eureka:
       defaultZone: http://localhost:8761/eureka/
     registerWithEureka: true
     fetchRegistry: true
-
   instance:
     preferIpAddress: true
     instanceId: ${spring.application.name}:${server.port}
