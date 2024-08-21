@@ -1,5 +1,6 @@
 package com.lms.user.controller;
 
+import com.lms.user.config.ConfigProperties;
 import com.lms.user.dto.CognitoUserDto;
 import com.lms.user.dto.LecturerRequestDto;
 import com.lms.user.dto.StudentRequestDto;
@@ -7,7 +8,9 @@ import com.lms.user.service.AdminService;
 import com.lms.user.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -15,11 +18,12 @@ import java.util.Map;
 
 @RestController
 @AllArgsConstructor
-@RequestMapping(value = "/api/admin")
+@RequestMapping(value = "/api/user/admin")
 public class AdminController {
 
     private final AdminService adminService;
     private final UserService userService;
+    private final ConfigProperties configProperties;
 
     @Operation(summary = "Get User Info", description = "Returns the user information from Cognito")
     @GetMapping("/userInfo")
@@ -27,17 +31,22 @@ public class AdminController {
         return userService.getUserInfo();
     }
 
+    @GetMapping("/getAdmins")
+    public List<CognitoUserDto> getAdmins() {
+        return adminService.listUsersInGroup("ADMIN");
+    }
+
     @Operation(summary = "Get Students", description = "Returns a list of all students")
     @GetMapping("/getStudents")
     public List<CognitoUserDto> getStudents() {
-        String group = "STUDENT";
+        String group = configProperties.getStudent();
         return adminService.listUsersInGroup(group);
     }
 
     @Operation(summary = "Get Lecturers", description = "Returns a list of all lecturers")
     @GetMapping("/getLecturers")
     public List<CognitoUserDto> getLecturers() {
-        String group = "LECTURER";
+        String group = configProperties.getLecturer();
         return adminService.listUsersInGroup(group);
     }
 

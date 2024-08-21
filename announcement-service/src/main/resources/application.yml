@@ -1,0 +1,10 @@
+server:
+  port: 8086
+
+spring:
+  application:
+    name: announcement-service
+  config:
+    import:
+      - vault://secret/spring-boot-lms
+      - configserver:http://config-server:8888

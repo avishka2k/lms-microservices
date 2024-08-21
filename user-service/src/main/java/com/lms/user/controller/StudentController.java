@@ -12,11 +12,10 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/api/student")
+@RequestMapping("/api/user/student")
 @RequiredArgsConstructor
 public class StudentController {
 
-    private final StudentService studentService;
     private final UserService userService;
 
     @PreAuthorize("hasRole('STUDENT')")

@@ -13,7 +13,7 @@ import java.util.Map;
 
 @RestController
 @AllArgsConstructor
-@RequestMapping(value = "/api/lecturer")
+@RequestMapping(value = "/api/user/lecturer")
 public class LecturerController {
 
     private final LecturerService lecturerService;

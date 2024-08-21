@@ -4,30 +4,10 @@ server:
 spring:
     application:
         name: user-service
-    cloud:
-        vault:
-            uri: http://localhost:8200
-            token: ${VAULT_TOKEN}
-            kv:
-                enabled: true
-                backend: secret
-                default-context: spring-boot-lms
-            scheme: http
     config:
-        import: vault://secret/spring-boot-lms
-    datasource:
-        url: ${vault.db_url}
-        username: ${vault.db_username}
-        password: ${vault.db_password}
-        driver-class-name: org.postgresql.Driver
-    jpa:
-        hibernate:
-            ddl-auto: update
-        show-sql: true
-        properties:
-            hibernate:
-                format_sql: true
-        database-platform: org.hibernate.dialect.PostgreSQLDialect
+      import:
+        - vault://secret/spring-boot-lms
+        - configserver:http://config-server:8888
     security:
       oauth2:
           client:
@@ -43,9 +23,6 @@ spring:
                 cognito:
                   user-info-uri: ${vault.cognito_domain}/oauth2/userInfo
                   issuer-uri: ${vault.cognito_issuer_uri}
-          resourceserver:
-            jwt:
-              issuer-uri: ${vault.cognito_issuer_uri}
 
 aws:
   region: ${vault.aws_region}
@@ -70,20 +47,3 @@ springdoc:
 #    sampling:
 #        probability: 1.0
 
-eureka:
-  client:
-    serviceUrl:
-      defaultZone: http://localhost:8761/eureka/
-    registerWithEureka: true
-    fetchRegistry: true
-
-  instance:
-    preferIpAddress: true
-    instanceId: ${spring.application.name}:${server.port}
-    leaseRenewalIntervalInSeconds: 5
-    leaseExpirationDurationInSeconds: 10
-
-
-logging:
-  level:
-    org.springframework.security: DEBUG
