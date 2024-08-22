@@ -1,0 +1,10 @@
+server:
+  port: 8090
+
+spring:
+  application:
+    name: course-service
+  config:
+    import:
+      - vault://secret/spring-boot-lms
+      - configserver:http://config-server:8888
