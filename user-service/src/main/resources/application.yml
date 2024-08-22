@@ -4,24 +4,12 @@ server:
 spring:
     application:
         name: user-service
-    datasource:
-      url: ${vault.db_url}
-      username: ${vault.db_username}
-      password: ${vault.db_password}
-      driver-class-name: org.postgresql.Driver
-    jpa:
-      hibernate:
-        ddl-auto: update
-      show-sql: true
-      properties:
-        hibernate:
-          format_sql: true
-      database-platform: org.hibernate.dialect.PostgreSQLDialect
+    config:
+      import:
+        - vault://secret/spring-boot-lms
+        - configserver:http://config-server:8888
     security:
       oauth2:
-          resourceserver:
-            jwt:
-              issuer-uri: ${vault.cognito_issuer_uri}
           client:
               registration:
                 cognito:
