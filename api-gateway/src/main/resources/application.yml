@@ -30,6 +30,11 @@ spring:
           predicates:
             - Path=/api/uni/**
 
+        - id: course-service
+          uri: http://course-service:8083
+          predicates:
+            - Path=/api/course/**
+
         - id: enrollment-service
           uri: lb://enrollment-service
           predicates:

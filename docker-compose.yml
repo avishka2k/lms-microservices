@@ -118,6 +118,24 @@ services:
       - vault
     restart: always
 
+  course-service:
+    build:
+      context: ./course-service
+      dockerfile: Dockerfile
+    container_name: course-service
+    ports:
+      - 8083:8083
+    environment:
+      - VAULT_ADDR=http://vault:8200
+      - VAULT_TOKEN=hvs.uZA17gLWEEpOXKUDgBVLCgwf
+    volumes:
+      - vault-data:/vault/file/
+    networks:
+      - lms-network
+    depends_on:
+      - vault
+    restart: always
+
   applicants-service:
     build:
       context: ./applicants-service
