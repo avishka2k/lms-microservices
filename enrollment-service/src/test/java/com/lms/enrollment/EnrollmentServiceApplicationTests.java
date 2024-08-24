@@ -10,4 +10,21 @@ class EnrollmentServiceApplicationTests {
     void contextLoads() {
     }
 
+    @Test
+    void enrollStudent() {
+    }
+
+
+
+    @Test
+    void updateEnrollment() {
+    }
+
+    @Test
+    void rejectStudent() {
+    }
+
+    @Test
+    void getEnrollment() {
+    }
 }

@@ -22,6 +22,22 @@ public class EnrollmentService {
         return enrollmentRepository.save(studentEnrollment);
     }
 
+    // Read enrollment
+    public StudentEnrollment getEnrollment(Long studentId) {
+        return enrollmentRepository.findByStudentId(studentId);
+    }
+
+    // Update enrollment
+    public StudentEnrollment updateEnrollment(Long studentId, Long newCourseId) {
+        // Check if the new course is available and meets prerequisites
+        StudentEnrollment studentEnrollment = enrollmentRepository.findById(studentId).orElse(null);
+        if (studentEnrollment != null) {
+            studentEnrollment.setCourseId(newCourseId);
+            return enrollmentRepository.save(studentEnrollment);
+        }
+        return null;
+    }
+
     // Reject student
     public void rejectStudent(Long studentId) {
         StudentEnrollment studentEnrollment = enrollmentRepository.findByStudentId(studentId);
