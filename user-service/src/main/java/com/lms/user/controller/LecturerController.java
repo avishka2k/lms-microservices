@@ -1,7 +1,7 @@
 package com.lms.user.controller;
 
 import com.lms.user.service.LecturerService;
-import com.lms.user.service.UserService;
+import com.lms.user.service.impl.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.AllArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;

@@ -4,11 +4,10 @@ import com.lms.user.config.ConfigProperties;
 import com.lms.user.dto.CognitoUserDto;
 import com.lms.user.dto.LecturerRequestDto;
 import com.lms.user.dto.StudentRequestDto;
-import com.lms.user.service.AdminService;
-import com.lms.user.service.UserService;
+import com.lms.user.service.impl.AdminService;
+import com.lms.user.service.impl.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 

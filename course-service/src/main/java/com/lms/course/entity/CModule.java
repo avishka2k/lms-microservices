@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "modules")
-public class Module {
+public class CModule {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

@@ -1,4 +1,4 @@
-package com.lms.user.service;
+package com.lms.user.service.impl;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;

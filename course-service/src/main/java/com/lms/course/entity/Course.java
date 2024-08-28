@@ -31,7 +31,7 @@ public class Course {
     private int credits;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "course", orphanRemoval = true)
-    private Set<Module> modules = new HashSet<>();
+    private Set<CModule> CModules = new HashSet<>();
 
     @Column(nullable = false, updatable = false)
     private LocalDateTime createdDate;

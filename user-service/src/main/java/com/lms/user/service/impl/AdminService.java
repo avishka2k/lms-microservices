@@ -1,4 +1,4 @@
-package com.lms.user.service;
+package com.lms.user.service.impl;
 
 import com.lms.user.dto.CognitoUserDto;
 import com.lms.user.dto.LecturerRequestDto;
