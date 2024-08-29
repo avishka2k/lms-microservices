@@ -21,6 +21,7 @@ public class FacultyService {
 
     private FacultyRepository facultyRepository;
     private DepartmentRepository departmentRepository;
+    private KafkaProducerService kafkaProducerService;
     // List all faculties
     public List<Faculty> listFaculties() {
         List<Faculty> faculties = facultyRepository.findAll();
@@ -158,5 +159,40 @@ public class FacultyService {
         department.setFaculty(null);
         departmentRepository.save(department);
         return "Department unassigned from faculty successfully";
+    }
+
+    public String assignCourseToDepartment(Long departmentId, Long courseId) {
+        Department department = departmentRepository.findById(departmentId).orElse(null);
+        if (department == null) {
+            throw new NotFoundException("Department not found");
+        }
+
+        if (department.getCourseIds().contains(courseId)) {
+            throw new ConflictException("Course already assigned to department");
+        }
+        department.getCourseIds().add(courseId);
+        Department  savedDepartment =  departmentRepository.save(department);
+        DepartmentEvent departmentEvent = new DepartmentEvent(courseId, savedDepartment.getId(), "COURSE_ASSIGNED");
+        kafkaProducerService.sendCourseEvent(departmentEvent);
+
+        return "Course assigned to department successfully";
+    }
+
+    public String unassignCourseFromDepartment(Long departmentId, Long courseId) {
+        Department department = departmentRepository.findById(departmentId).orElse(null);
+        if (department == null) {
+            throw new NotFoundException("Department not found");
+        }
+
+        if (!department.getCourseIds().contains(courseId)) {
+            throw new NotFoundException("Course not assigned to department");
+        }
+
+        department.getCourseIds().remove(courseId);
+        Department savedDepartment = departmentRepository.save(department);
+        DepartmentEvent departmentEvent = new DepartmentEvent(courseId, savedDepartment.getId(), "COURSE_UNASSIGNED");
+        kafkaProducerService.sendCourseEvent(departmentEvent);
+
+        return "Course unassigned from department successfully";
     }
 }

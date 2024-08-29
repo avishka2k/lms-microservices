@@ -7,15 +7,10 @@ spring:
   config:
     import:
       - vault://secret/spring-boot-lms
-      - configserver:http://localhost:8888
+      - configserver:http://config-server:8888
 
   kafka:
-    bootstrap-servers: localhost:9092
     producer:
+      bootstrap-servers: apache-kafka:29092
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
-      value-serializer: org.apache.kafka.common.serialization.StringSerializer
-    consumer:
-      group-id: university-group
-      auto-offset-reset: earliest
-      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
-      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer

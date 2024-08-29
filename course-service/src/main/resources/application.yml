@@ -7,15 +7,17 @@ spring:
   config:
     import:
       - vault://secret/spring-boot-lms
-      - configserver:http://localhost:8888
+      - configserver:http://config-server:8888
 
   kafka:
-    bootstrap-servers: localhost:9092
-    producer:
-      key-serializer: org.apache.kafka.common.serialization.StringSerializer
-      value-serializer: org.apache.kafka.common.serialization.StringSerializer
     consumer:
-      group-id: university-group
+      bootstrap-servers: apache-kafka:29092
+      group-id: course-group
       auto-offset-reset: earliest
       key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
-      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.ErrorHandlingDeserializer
+      properties:
+        spring.json.trusted.packages: '*'
+        spring.deserializer.key.delegate.class: org.apache.kafka.common.serialization.StringDeserializer
+        spring.deserializer.value.delegate.class: org.springframework.kafka.support.serializer.JsonDeserializer
+        spring.json.value.default.type: com.lms.course.event.DepartmentEvent

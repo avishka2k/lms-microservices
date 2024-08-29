@@ -168,4 +168,14 @@ public class CourseService {
         return courses;
     }
 
+    public String unassignCourseFromDepartment(Long courseId) {
+        Course course = courseRepository.findById(courseId).orElse(null);
+        if (course == null) {
+            throw new NotFoundException("Course not found");
+        }
+        course.setDepartmentId(null);
+        courseRepository.save(course);
+        return "Course unassigned from department successfully";
+    }
+
 }

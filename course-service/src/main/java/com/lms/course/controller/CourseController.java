@@ -209,5 +209,17 @@ public class CourseController {
         }
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
+    @DeleteMapping("/unassign/{courseId}/department")
+    public ResponseEntity<?> unassignCourseFromDepartment(@PathVariable Long courseId) {
+        try {
+            return new ResponseEntity<>(courseService.unassignCourseFromDepartment(courseId), HttpStatus.OK);
+        } catch (NotFoundException e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
+        } catch (Exception e) {
+            return new ResponseEntity<>("Failed to unassign course from department", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
 }
 
