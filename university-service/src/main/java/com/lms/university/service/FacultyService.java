@@ -4,6 +4,7 @@ import com.lms.university.dto.DepartmentUpdateDto;
 import com.lms.university.dto.FacultyUpdateDto;
 import com.lms.university.entity.Department;
 import com.lms.university.entity.Faculty;
+import com.lms.university.event.DepartmentEvent;
 import com.lms.university.exception.ConflictException;
 import com.lms.university.exception.NotFoundException;
 import com.lms.university.repository.DepartmentRepository;

@@ -30,6 +30,8 @@ public class Course {
     private String format; // Can be 'online', 'in-person', or 'hybrid'
     private int credits;
 
+    private Long departmentId;
+
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "course", orphanRemoval = true)
     private Set<CModule> CModules = new HashSet<>();
 

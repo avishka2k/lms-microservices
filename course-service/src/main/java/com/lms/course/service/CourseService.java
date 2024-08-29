@@ -152,4 +152,20 @@ public class CourseService {
         return "Module unassigned from course successfully";
     }
 
+    public List<Course> getCoursesWithoutAssigned() {
+        List<Course> courses = courseRepository.findByDepartmentIdIsNull();
+        if (courses.isEmpty()) {
+            throw new NotFoundException("No courses found");
+        }
+        return courses;
+    }
+
+    public List<Course> getCoursesByDepartmentId(Long departmentId) {
+        List<Course> courses = courseRepository.findByDepartmentId(departmentId);
+        if (courses.isEmpty()) {
+            throw new NotFoundException("No courses found");
+        }
+        return courses;
+    }
+
 }

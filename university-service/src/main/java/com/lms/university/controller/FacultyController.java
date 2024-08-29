@@ -213,4 +213,20 @@ public class FacultyController {
             return new ResponseEntity<>("Failed to unassign department from faculty", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
+    // assign course to department
+//    @PreAuthorize("hasRole('ADMIN')")
+//    @PostMapping("/department/{departmentId}/course/{courseId}")
+//    public ResponseEntity<?> assignCourseToDepartment(@PathVariable(name = "departmentId") Long departmentId, @PathVariable(name = "courseId") Long courseId) {
+//        try {
+//            String response = facultyService.assignCourseToDepartment(departmentId, courseId);
+//            return new ResponseEntity<>(response, HttpStatus.OK);
+//        } catch (ConflictException e){
+//            return new ResponseEntity<>(e.getMessage(), HttpStatus.CONFLICT);
+//        } catch (NotFoundException e) {
+//            return new ResponseEntity<>(e.getMessage(), HttpStatus.OK);
+//        } catch (Exception e) {
+//            return new ResponseEntity<>("Failed to assign course to department: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+//        }
+//    }
 }

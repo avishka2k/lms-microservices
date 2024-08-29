@@ -6,6 +6,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Data
 @Entity
@@ -28,6 +30,9 @@ public class Department {
     private String description;
 
     private Long headId;
+
+    @ElementCollection
+    private List<Long> courseIds = new ArrayList<>();
 
     @ManyToOne
     @JoinColumn(name = "faculty_id")

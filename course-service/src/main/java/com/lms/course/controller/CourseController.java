@@ -9,6 +9,7 @@ import com.lms.course.service.CourseService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -170,19 +171,6 @@ public class CourseController {
         }
     }
 
-    // list modules without assigned to course
-    @GetMapping("/unassigned")
-    public ResponseEntity<?> listModulesWithoutCourse() {
-        try {
-            List<CModule> modules = courseService.listModulesWithoutCourse();
-            return new ResponseEntity<>(modules, HttpStatus.OK);
-        } catch (NotFoundException e) {
-            return new ResponseEntity<>(e.getMessage(), HttpStatus.OK);
-        } catch (Exception e) {
-            return new ResponseEntity<>("Failed to get modules", HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-    }
-
     // Unassign module from course
     @PostMapping("/unassign/{moduleId}")
     public ResponseEntity<?> unassignModuleFromCourse(@PathVariable Long moduleId) {
@@ -192,6 +180,32 @@ public class CourseController {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
         } catch (Exception e) {
             return new ResponseEntity<>("Failed to unassign module from course", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @PreAuthorize("hasRole('ADMIN')")
+    @GetMapping("/unassigned")
+    public ResponseEntity<?> getCoursesWithoutAssigned() {
+        try {
+            List<Course> courses = courseService.getCoursesWithoutAssigned();
+            return new ResponseEntity<>(courses, HttpStatus.OK);
+        } catch (NotFoundException e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>("Failed to get courses", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    // Get courses by department ID
+    @GetMapping("/department/{departmentId}")
+    public ResponseEntity<?> getCoursesByDepartmentId(@PathVariable Long departmentId) {
+        try {
+            List<Course> courses = courseService.getCoursesByDepartmentId(departmentId);
+            return new ResponseEntity<>(courses, HttpStatus.OK);
+        } catch (NotFoundException e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>("Failed to get courses", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
