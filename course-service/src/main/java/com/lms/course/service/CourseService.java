@@ -178,4 +178,12 @@ public class CourseService {
         return "Course unassigned from department successfully";
     }
 
+    public String getCourseNameById(Long courseId) {
+        Course course = courseRepository.findById(courseId).orElse(null);
+        if (course == null) {
+            throw new NotFoundException("Course not found");
+        }
+        return course.getTitle();
+    }
+
 }

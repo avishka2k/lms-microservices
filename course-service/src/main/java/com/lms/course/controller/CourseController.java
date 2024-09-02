@@ -33,6 +33,19 @@ public class CourseController {
         }
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
+    @GetMapping("/name/{courseId}")
+    public ResponseEntity<?> getCourseNameById(@PathVariable Long courseId) {
+        try {
+            String courseName = courseService.getCourseNameById(courseId);
+            return new ResponseEntity<>(courseName, HttpStatus.OK);
+        } catch (NotFoundException e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
+        } catch (Exception e) {
+            return new ResponseEntity<>("Failed to get course name", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
     // Get course by ID
     @GetMapping("/{id}")
     public ResponseEntity<?> getCourseById(@PathVariable Long id) {
