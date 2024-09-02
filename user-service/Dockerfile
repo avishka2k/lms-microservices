@@ -11,11 +11,11 @@ COPY src src
 RUN chmod +x mvnw
 
 # Copy the entrypoint script
-COPY entrypoint.sh /entrypoint.sh
-
-# Make the entrypoint script executable
-RUN chmod +x /entrypoint.sh
-
-# Set the entrypoint script to be executed
-ENTRYPOINT ["/entrypoint.sh"]
+#COPY entrypoint.sh /entrypoint.sh
+#
+## Make the entrypoint script executable
+#RUN chmod +x /entrypoint.sh
+#
+## Set the entrypoint script to be executed
+#ENTRYPOINT ["/entrypoint.sh"]
 CMD ["./mvnw", "spring-boot:run"]
