@@ -115,7 +115,7 @@ services:
       - 8081:8081
     environment:
       - VAULT_ADDR=http://vault:8200
-      - VAULT_TOKEN=
+      - VAULT_TOKEN=${VAULT_TOKEN}
     volumes:
       - vault-data:/vault/file/
     networks:
@@ -133,7 +133,7 @@ services:
       - 8082:8082
     environment:
       - VAULT_ADDR=http://vault:8200
-      - VAULT_TOKEN=
+      - VAULT_TOKEN=${VAULT_TOKEN}
     volumes:
       - vault-data:/vault/file/
     networks:
@@ -151,7 +151,7 @@ services:
       - 8083:8083
     environment:
       - VAULT_ADDR=http://vault:8200
-      - VAULT_TOKEN=
+      - VAULT_TOKEN=${VAULT_TOKEN}
     volumes:
       - vault-data:/vault/file/
     networks:
@@ -169,7 +169,7 @@ services:
       - 8084:8084
     environment:
       - VAULT_ADDR=http://vault:8200
-      - VAULT_TOKEN=
+      - VAULT_TOKEN=${VAULT_TOKEN}
     volumes:
       - vault-data:/vault/file/
     networks:
@@ -187,7 +187,7 @@ services:
       - 8086:8086
     environment:
       - VAULT_ADDR=http://vault:8200
-      - VAULT_TOKEN=
+      - VAULT_TOKEN=${VAULT_TOKEN}
     volumes:
       - vault-data:/vault/file/
     networks:
