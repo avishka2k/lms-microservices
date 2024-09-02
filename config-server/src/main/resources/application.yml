@@ -8,6 +8,6 @@ spring:
     config:
       server:
         git:
-          default-label: configs
+          default-label: configs_u
           uri: https://github.com/avishka2k/lms-microservices.git
           clone-on-start: true

@@ -59,7 +59,8 @@ public class StudentApplicantsController {
             return new ResponseEntity<>("Failed to create student applicants", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-
+//comment
+    //hard code valu gann
     // Delete student applicants
     @DeleteMapping("/{id}")
     @PreAuthorize("hasRole('ADMIN')")

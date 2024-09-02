@@ -30,10 +30,22 @@ spring:
           predicates:
             - Path=/api/uni/**
 
+        - id: university-service-public
+          uri: http://university-service:8082
+          predicates:
+            - Path=/api/public/uni/**
+            - Method=GET
+
         - id: course-service
           uri: http://course-service:8083
           predicates:
             - Path=/api/course/**
+
+        - id: course-service-public
+          uri: http://course-service:8083
+          predicates:
+            - Path=/api/public/courses/**
+            - Method=GET
 
         - id: enrollment-service
           uri: lb://enrollment-service
@@ -44,11 +56,6 @@ spring:
           uri: http://applicants-service:8084
           predicates:
             - Path=/api/applicants/**
-
-        - id: course-service
-          uri: http://course-service:8085
-          predicates:
-            - Path=/api/course/**
 
         - id: announcement-service
           uri: http://announcement-service:8086

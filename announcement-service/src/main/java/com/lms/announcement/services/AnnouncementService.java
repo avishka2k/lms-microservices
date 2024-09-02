@@ -24,7 +24,6 @@ public class AnnouncementService {
         assignment.setAssignmentDueDate(assignmentDto.getAssignmentDueDate());
         assignment.setAssignmentInstructions(assignmentDto.getAssignmentInstructions());
         assignment.setAssignmentInstructor(assignmentDto.getAssignmentInstructor());
-        assignment.setAssignmentDate(LocalDate.now());
         if (assignmentDto.getAssignmentDueDate().isBefore(LocalDate.now())) {
             throw new InvalidDateException("Assignment due date cannot be in the past");
         }

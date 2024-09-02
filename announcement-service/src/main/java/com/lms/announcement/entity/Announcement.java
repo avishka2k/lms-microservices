@@ -23,13 +23,14 @@ public class Announcement {
     private String description;
     @Column(nullable = false)
     private String type;
+    @Column(nullable = false, updatable = false)
+    private LocalDateTime createdDate;
 
     // Assignment specific fields
     private String assignmentCourseCode;
     private LocalDate assignmentDueDate;
     private String assignmentInstructions;
     private String assignmentInstructor;
-    private LocalDate assignmentDate;
 
     // Exam specific fields
     private String examCourseCode;
@@ -53,5 +54,10 @@ public class Announcement {
     private LocalDateTime maintenanceEnd;
     private String maintenanceServices;
     private String maintenanceContact;
+
+    @PrePersist
+    protected void onCreate() {
+        this.createdDate = LocalDateTime.now();
+    }
 }
 
