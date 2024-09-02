@@ -5,6 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
+
 @Entity
 @Data
 @AllArgsConstructor
@@ -23,25 +25,30 @@ public class Student {
     private String lastName;
     @Column(nullable = false)
     private String fullName;
-    private String phoneNumber;
+    private String phone;
     @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "address_id")
     private Address address;
     private String dateOfBirth;
     @Column(nullable = false)
     private String gender;
-    private String joiningDate;
+    private LocalDateTime joiningDate;
 
     private String nicImage;
     private String studentImage;
     private String birthCertificateImage;
 
-    private int studentId;
-    private int enrollmentNumber;
+    private Long studentId;
+    private String enrollmentNumber;
     private String intake;
 
     private String guardianName;
-    private String guardianPhoneNumber;
+    private String guardianPhone;
+    private String guardianRelationship;
     private String guardianEmail;
-    private String relationship;
+
+    @PrePersist
+    protected void onCreate() {
+        this.joiningDate = LocalDateTime.now();
+    }
 }

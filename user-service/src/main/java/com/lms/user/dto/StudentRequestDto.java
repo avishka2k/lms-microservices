@@ -1,6 +1,7 @@
 package com.lms.user.dto;
 
-import jakarta.persistence.ElementCollection;
+import com.lms.user.entity.Address;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -16,7 +17,7 @@ public class StudentRequestDto implements UserRequestDto {
     private String firstName;
     private String lastName;
     private String fullName;
-    private String phoneNumber;
+    private String phone;
     @ElementCollection
     private AddressDto address;
     private String dateOfBirth;
@@ -27,12 +28,12 @@ public class StudentRequestDto implements UserRequestDto {
     private String studentImage;
     private String birthCertificateImage;
 
-    private int studentId;
-    private int enrollmentNumber;
+    private Long studentId;
+    private String enrollmentNumber;
     private String intake;
 
     private String guardianName;
-    private String guardianPhoneNumber;
+    private String guardianPhone;
     private String guardianEmail;
-    private String relationship;
+    private String guardianRelationship;
 }

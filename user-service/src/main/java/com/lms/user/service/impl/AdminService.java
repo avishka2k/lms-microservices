@@ -50,8 +50,9 @@ public class AdminService {
             address = addressRepository.save(address);
             Student student = getStudent(dto, address);
             studentRepository.save(student);
-            String user = createCognitoUser(dto, groupName);
-            return "Student created successfully with username " + user;
+            System.out.println("Student created successfully with username " + dto);
+//            String user = createCognitoUser(dto, groupName);
+            return "Student created successfully with username ";
         } catch (Exception e) {
             throw new RuntimeException("Failed to save student in database" + e);
         }
@@ -70,8 +71,8 @@ public class AdminService {
             address = addressRepository.save(address);
             Lecturer student = getLecturer(dto, address);
             lecturerRepository.save(student);
-            String user = createCognitoUser(dto, groupName);
-            return "Lecturer created successfully with username " + user;
+//            String user = createCognitoUser(dto, groupName);
+            return "Lecturer created successfully with username ";
         } catch (Exception e) {
             throw new RuntimeException("Failed to save student in database" + e);
         }
@@ -84,13 +85,10 @@ public class AdminService {
         student.setFirstName(dto.getFirstName());
         student.setLastName(dto.getLastName());
         student.setFullName(dto.getFullName());
-        student.setPhoneNumber(dto.getPhoneNumber());
+        student.setPhone(dto.getPhone());
         student.setAddress(address);
         student.setDateOfBirth(dto.getDateOfBirth());
         student.setGender(dto.getGender());
-        student.setJoiningDate(dto.getJoiningDate());
-
-        student.setJoiningDate(dto.getJoiningDate());
         student.setNicImage(dto.getNicImage());
         student.setStudentImage(dto.getStudentImage());
         student.setBirthCertificateImage(dto.getBirthCertificateImage());
@@ -98,9 +96,9 @@ public class AdminService {
         student.setEnrollmentNumber(dto.getEnrollmentNumber());
         student.setIntake(dto.getIntake());
         student.setGuardianName(dto.getGuardianName());
-        student.setGuardianPhoneNumber(dto.getGuardianPhoneNumber());
+        student.setGuardianPhone(dto.getGuardianPhone());
         student.setGuardianEmail(dto.getGuardianEmail());
-        student.setRelationship(dto.getRelationship());
+        student.setGuardianRelationship(dto.getGuardianRelationship());
         return student;
     }
 
@@ -115,7 +113,6 @@ public class AdminService {
         lecturer.setAddress(address);
         lecturer.setDateOfBirth(dto.getDateOfBirth());
         lecturer.setGender(dto.getGender());
-        lecturer.setJoiningDate(dto.getJoiningDate());
 
         lecturer.setNicImage(dto.getNicImage());
         lecturer.setProfileImage(dto.getProfileImage());

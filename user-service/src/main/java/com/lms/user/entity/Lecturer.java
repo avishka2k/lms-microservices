@@ -5,6 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
+
 @Entity
 @Data
 @AllArgsConstructor
@@ -30,7 +32,7 @@ public class Lecturer {
     private String dateOfBirth;
     @Column(nullable = false)
     private String gender;
-    private String joiningDate;
+    private LocalDateTime joiningDate;
     private String nicImage;
     private String profileImage;
 
@@ -48,4 +50,9 @@ public class Lecturer {
     private String researchInterest;
     private String linkedIn;
     private String cv;
+
+    @PrePersist
+    protected void onCreate() {
+        this.joiningDate = LocalDateTime.now();
+    }
 }
