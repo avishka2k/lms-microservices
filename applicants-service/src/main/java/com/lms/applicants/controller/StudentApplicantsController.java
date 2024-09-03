@@ -27,7 +27,7 @@ public class StudentApplicantsController {
             List<StudentApplicants> students = studentApplicantsService.listStudentApplicants();
             return new ResponseEntity<>(students, HttpStatus.OK);
         } catch (NotFoundException e) {
-            return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>("Failed to list student applicants", HttpStatus.INTERNAL_SERVER_ERROR);
         }
@@ -41,7 +41,7 @@ public class StudentApplicantsController {
             StudentApplicants student = studentApplicantsService.getStudentApplicantsById(id);
             return new ResponseEntity<>(student, HttpStatus.OK);
         } catch (NotFoundException e) {
-            return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>("Failed to get student applicants", HttpStatus.INTERNAL_SERVER_ERROR);
         }
@@ -59,8 +59,7 @@ public class StudentApplicantsController {
             return new ResponseEntity<>("Failed to create student applicants", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-//comment
-    //hard code valu gann
+
     // Delete student applicants
     @DeleteMapping("/{id}")
     @PreAuthorize("hasRole('ADMIN')")

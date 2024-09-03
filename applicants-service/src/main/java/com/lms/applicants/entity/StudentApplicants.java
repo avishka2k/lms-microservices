@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Data
@@ -21,6 +22,7 @@ public class StudentApplicants {
     private String lastName;
     private String fullName;
     private String dateOfBirth;
+    private String gender;
     @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "address_id")
     private Address address;
@@ -31,5 +33,12 @@ public class StudentApplicants {
     private String guardianName;
     private String guardianPhone;
     private String guardianEmail;
-    private Date dateOfApplication = new Date();
+    private String guardianRelationship;
+    @Column(nullable = false)
+    private LocalDateTime dateOfApplication;
+
+    @PrePersist
+    protected void onCreate() {
+        this.dateOfApplication = LocalDateTime.now();
+    }
 }
