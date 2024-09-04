@@ -1,6 +1,7 @@
 package com.lms.course.controller;
 
 import com.lms.course.dto.CourseUpdateDto;
+import com.lms.course.dto.ModuleUpdateDto;
 import com.lms.course.entity.Course;
 import com.lms.course.entity.CModule;
 import com.lms.course.exception.ConflictException;
@@ -116,7 +117,7 @@ public class CourseController {
             CModule module = courseService.getModuleById(id);
             return new ResponseEntity<>(module, HttpStatus.OK);
         } catch (NotFoundException e) {
-            return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>("Failed to get faculty", HttpStatus.INTERNAL_SERVER_ERROR);
         }
@@ -137,9 +138,9 @@ public class CourseController {
 
     // Update a module
     @PutMapping("/module/{id}")
-    public ResponseEntity<?> updateModule(@PathVariable Long id, @RequestBody CourseUpdateDto courseDetails) {
+    public ResponseEntity<?> updateModule(@PathVariable Long id, @RequestBody ModuleUpdateDto moduleUpdateDto) {
         try {
-            return new ResponseEntity<>(courseService.updateModule(id, courseDetails), HttpStatus.OK);
+            return new ResponseEntity<>(courseService.updateModule(id, moduleUpdateDto), HttpStatus.OK);
         } catch (NotFoundException e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
         } catch (Exception e) {
@@ -160,7 +161,7 @@ public class CourseController {
     }
 
     // Get modules by course ID
-    @GetMapping("/module/{courseId}")
+    @GetMapping("/module/{courseId}/course")
     public ResponseEntity<?> getModulesByCourseId(@PathVariable Long courseId) {
         try {
             List<CModule> modules = courseService.getModulesByCourseId(courseId);
@@ -184,8 +185,21 @@ public class CourseController {
         }
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
+    @GetMapping("/module/unassigned")
+    public ResponseEntity<?> getModulesWithoutAssigned() {
+        try {
+            List<CModule> courses = courseService.getModulesWithoutAssigned();
+            return new ResponseEntity<>(courses, HttpStatus.OK);
+        } catch (NotFoundException e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>("Failed to get modules", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
     // Unassign module from course
-    @PostMapping("/unassign/{moduleId}")
+    @DeleteMapping("/unassign/{moduleId}")
     public ResponseEntity<?> unassignModuleFromCourse(@PathVariable Long moduleId) {
         try {
             return new ResponseEntity<>(courseService.unassignModuleFromCourse(moduleId), HttpStatus.OK);

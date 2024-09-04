@@ -7,13 +7,12 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class CourseUpdateDto {
+public class ModuleUpdateDto {
     private String title;
     private String description;
-    private String lecturer;
     private Long duration; // Duration in hours
     private String level;
     private String language;
-    private String format; // Can be 'online', 'in-person', or 'hybrid'
     private Long credits;
+    private String semester;
 }

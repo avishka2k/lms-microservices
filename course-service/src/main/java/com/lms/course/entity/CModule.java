@@ -22,6 +22,8 @@ public class CModule {
     private Long duration; // Duration in hours
     private String level;
     private String language;
+    private Long credits;
+    private String semester;
 
     @ManyToOne
     @JoinColumn(name = "course_id")
@@ -33,7 +35,7 @@ public class CModule {
     @PrePersist
     protected void onCreate() {
         int randomNum = (int)(Math.random() * 9000) + 1000;
-        this.mId = "MO" + randomNum;
+        this.mId = "MD" + randomNum;
         this.createdDate = LocalDateTime.now();
     }
 }

@@ -24,11 +24,11 @@ public class Course {
     private String title;
     private String description;
     private String lecturer;
-    private Long duration; // Duration in hours
+    private Long duration; // Duration in year
     private String level;
     private String language;
     private String format; // Can be 'online', 'in-person', or 'hybrid'
-    private int credits;
+    private Long credits;
 
     private Long departmentId;
 
