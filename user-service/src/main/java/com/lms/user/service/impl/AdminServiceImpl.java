@@ -7,6 +7,7 @@ import com.lms.user.dto.UserRequestDto;
 import com.lms.user.entity.Address;
 import com.lms.user.entity.Lecturer;
 import com.lms.user.entity.Student;
+import com.lms.user.exception.NotFoundException;
 import com.lms.user.repository.AddressRepository;
 import com.lms.user.repository.LecturerRepository;
 import com.lms.user.repository.StudentRepository;
@@ -51,8 +52,8 @@ public class AdminService {
             Student student = getStudent(dto, address);
             studentRepository.save(student);
             System.out.println("Student created successfully with username " + dto);
-//            String user = createCognitoUser(dto, groupName);
-            return "Student created successfully with username ";
+            String user = createCognitoUser(dto, groupName);
+            return "Student created successfully with username " + user;
         } catch (Exception e) {
             throw new RuntimeException("Failed to save student in database" + e);
         }
@@ -71,8 +72,8 @@ public class AdminService {
             address = addressRepository.save(address);
             Lecturer student = getLecturer(dto, address);
             lecturerRepository.save(student);
-//            String user = createCognitoUser(dto, groupName);
-            return "Lecturer created successfully with username ";
+            String user = createCognitoUser(dto, groupName);
+            return "Lecturer created successfully with username " + user;
         } catch (Exception e) {
             throw new RuntimeException("Failed to save student in database" + e);
         }
@@ -257,5 +258,9 @@ public class AdminService {
             e.printStackTrace();
             throw new RuntimeException("Failed to update user attributes in Cognito", e);
         }
+    }
+
+    public List<Student> listAllDbStudents() {
+        return studentRepository.findAll();
     }
 }
