@@ -1,5 +1,6 @@
 package com.lms.user.service.impl;
 
+import com.lms.user.service.UserService;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -15,7 +16,7 @@ import java.util.Collections;
 import java.util.Map;
 
 @Service
-public class UserService {
+public class UserServiceImpl implements UserService {
 
     @Value("${spring.security.oauth2.client.provider.cognito.user-info-uri}")
     private String userInfoUri;

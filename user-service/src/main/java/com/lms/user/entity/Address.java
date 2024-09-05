@@ -1,5 +1,7 @@
 package com.lms.user.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -22,8 +24,10 @@ public class Address {
     private String country;
 
     @OneToOne(mappedBy = "address")
+    @JsonBackReference
     private Student student;
 
     @OneToOne(mappedBy = "address")
+    @JsonBackReference
     private Lecturer lecturer;
 }

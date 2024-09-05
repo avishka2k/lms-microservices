@@ -1,5 +1,6 @@
 package com.lms.user.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -28,6 +29,7 @@ public class Student {
     private String phone;
     @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "address_id")
+    @JsonManagedReference
     private Address address;
     private String dateOfBirth;
     @Column(nullable = false)
@@ -41,6 +43,7 @@ public class Student {
     private Long studentId;
     private String enrollmentNumber;
     private String intake;
+    private Long courseId;
 
     private String guardianName;
     private String guardianPhone;

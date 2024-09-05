@@ -121,11 +121,7 @@ public class CourseServiceImpl implements CourseService {
 
     // get all modules by course id
     public List<CModule> getModulesByCourseId(Long courseId) {
-        List<CModule> modules = moduleRepository.findByCourseId(courseId);
-        if (modules.isEmpty()) {
-            throw new NotFoundException("No modules found");
-        }
-        return modules;
+        return moduleRepository.findByCourseId(courseId);
     }
 
     // assign module to course

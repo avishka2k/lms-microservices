@@ -31,6 +31,7 @@ public class StudentRequestDto implements UserRequestDto {
     private Long studentId;
     private String enrollmentNumber;
     private String intake;
+    private Long courseId;
 
     private String guardianName;
     private String guardianPhone;

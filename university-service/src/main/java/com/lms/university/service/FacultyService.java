@@ -10,7 +10,6 @@ import com.lms.university.exception.NotFoundException;
 import com.lms.university.repository.DepartmentRepository;
 import com.lms.university.repository.FacultyRepository;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

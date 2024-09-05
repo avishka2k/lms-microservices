@@ -1,5 +1,6 @@
 package com.lms.user.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -23,33 +24,32 @@ public class Lecturer {
     private String email;
     private String firstName;
     private String lastName;
-    @Column(nullable = false)
     private String fullName;
-    private String phoneNumber;
+    private String phone;
     @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "address_id")
+    @JsonManagedReference
     private Address address;
     private String dateOfBirth;
-    @Column(nullable = false)
     private String gender;
     private LocalDateTime joiningDate;
     private String nicImage;
     private String profileImage;
 
-    @Column(nullable = false)
-    private int LecturerId;
+    private Long lecturerId;
     private String designation;
     private String department;
     private String faculty;
     private String officeLocation;
-    private String employType;
+    private String workType;
     private String nic;
-    private String highestDegreeObtained;
-    private String highestDegreeInstitute;
-    private String specialization;
+    private String highestDegree;
+    private String institution;
+    private String major;
     private String researchInterest;
     private String linkedIn;
     private String cv;
+    private String emergencyPhone;
 
     @PrePersist
     protected void onCreate() {
