@@ -11,6 +11,9 @@ import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+/**
+ * Controller for handling announcements related to assignments, events, exams, and maintenance.
+ */
 @RestController
 @RequestMapping("/api/announcement")
 @AllArgsConstructor
@@ -18,6 +21,11 @@ public class AnnouncementController {
 
     private final AnnouncementService announcementService;
 
+    /**
+     * Retrieves all announcements.
+     *
+     * @return ResponseEntity containing the list of all announcements or an error message.
+     */
     @GetMapping("/all")
     public ResponseEntity<?> getAnnouncements() {
         try {
@@ -27,6 +35,12 @@ public class AnnouncementController {
         }
     }
 
+    /**
+     * Creates a new assignment announcement.
+     *
+     * @param assignmentDto Data Transfer Object (DTO) containing assignment details.
+     * @return ResponseEntity with the created assignment or an error message.
+     */
     @PostMapping("/assignment")
     public ResponseEntity<?> createAssignment(@RequestBody AssignmentDto assignmentDto) {
         try {
@@ -38,6 +52,12 @@ public class AnnouncementController {
         }
     }
 
+    /**
+     * Creates a new event announcement.
+     *
+     * @param eventDto DTO containing event details.
+     * @return ResponseEntity with the created event or an error message.
+     */
     @PostMapping("/event")
     public ResponseEntity<?> createEvent(@RequestBody EventDto eventDto) {
         try {
@@ -49,6 +69,12 @@ public class AnnouncementController {
         }
     }
 
+    /**
+     * Creates a new exam announcement.
+     *
+     * @param examDto DTO containing exam details.
+     * @return ResponseEntity with the created exam or an error message.
+     */
     @PostMapping("/exam")
     public ResponseEntity<?> createExam(@RequestBody ExamDto examDto) {
         try {
@@ -60,6 +86,12 @@ public class AnnouncementController {
         }
     }
 
+    /**
+     * Creates a new maintenance announcement.
+     *
+     * @param maintenanceDto DTO containing maintenance details.
+     * @return ResponseEntity with the created maintenance announcement or an error message.
+     */
     @PostMapping("/maintenance")
     public ResponseEntity<?> createMaintenance(@RequestBody MaintenanceDto maintenanceDto) {
         try {
@@ -71,6 +103,12 @@ public class AnnouncementController {
         }
     }
 
+    /**
+     * Deletes an announcement by its ID.
+     *
+     * @param id The ID of the announcement to delete.
+     * @return ResponseEntity indicating success or failure of the deletion.
+     */
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteAnnouncement(@PathVariable Long id) {
         try {
