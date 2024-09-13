@@ -12,6 +12,12 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+
+/**
+ * Controller for managing student enrollments.
+ * Provides endpoints for interacting with student enrollment data.
+ */
+
 @RestController
 @AllArgsConstructor
 @RequestMapping("/api/enrollment")
@@ -20,11 +26,17 @@ public class EnrollmentController {
 
     private final EnrollmentService enrollmentService;
 
+    /**
+     * Retrieves a list of students from the student service.
+     */
     @GetMapping("/students")
     public List<StudentResponse> getStudents() {
         return studentServiceClient.getStudents();
     }
 
+    /**
+     * Enrolls a student in a course.
+     */
     @PostMapping("/enroll")
     public ResponseEntity<?> enrollStudent(@RequestBody StudentEnrollment studentEnrollment) {
         try {
@@ -37,7 +49,9 @@ public class EnrollmentController {
         }
     }
 
-    // read enrollment
+    /**
+    * Retrieves the enrollment details for a specific student.
+    */
     @GetMapping("/{studentId}")
     public ResponseEntity<?> getEnrollment(@PathVariable Long studentId) {
         StudentEnrollment enrollment = enrollmentService.getEnrollment(studentId);
@@ -47,7 +61,9 @@ public class EnrollmentController {
         return new ResponseEntity<>(enrollment, HttpStatus.OK);
     }
 
-    // update enrollment
+    /**
+     * Updates the enrollment of a student with a new course ID.
+     */
     @PutMapping("/{studentId}")
     public ResponseEntity<?> updateEnrollment(@PathVariable Long studentId, @RequestParam Long newCourseId) {
         StudentEnrollment enrollment = enrollmentService.updateEnrollment(studentId, newCourseId);
@@ -57,7 +73,9 @@ public class EnrollmentController {
         return new ResponseEntity<>(enrollment, HttpStatus.OK);
     }
 
-    // reject student
+    /**
+     * Rejects a student's enrollment.
+     */
     @DeleteMapping("/{studentId}")
     public ResponseEntity<?> rejectStudent(@PathVariable Long studentId) {
         try {

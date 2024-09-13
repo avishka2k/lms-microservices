@@ -10,11 +10,18 @@ import org.springframework.security.oauth2.server.resource.authentication.JwtAut
 import org.springframework.security.oauth2.server.resource.authentication.JwtGrantedAuthoritiesConverter;
 import org.springframework.security.web.SecurityFilterChain;
 
+
+/**
+ * Security configuration class for setting up HTTP security and OAuth2 resource server support.
+ * Configures security policies, including JWT authentication and authorization rules.
+ */
 @Configuration
 @EnableWebSecurity
 @EnableMethodSecurity(prePostEnabled = true)
 public class SecurityConfig {
-
+    /**
+     * Configures the security filter chain for HTTP requests.
+     */
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
@@ -31,7 +38,9 @@ public class SecurityConfig {
                 );
         return http.build();
     }
-
+    /**
+     * Configures the JWT authentication converter to extract roles from JWT tokens.
+     */
     @Bean
     public JwtAuthenticationConverter jwtAuthenticationConverter() {
         JwtGrantedAuthoritiesConverter grantedAuthoritiesConverter = new JwtGrantedAuthoritiesConverter();

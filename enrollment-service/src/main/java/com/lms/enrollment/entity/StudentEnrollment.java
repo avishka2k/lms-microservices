@@ -7,6 +7,10 @@ import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 
+/**
+ * Entity representing a student's enrollment in a course.
+ * Maps to the "student_enrollments" table in the database.
+ */
 @Data
 @Entity
 @AllArgsConstructor
